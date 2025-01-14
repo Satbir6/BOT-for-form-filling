@@ -11,27 +11,68 @@ pyautogui.FAILSAFE = False
 
 
 # Function to connect to HMA VPN and establish a VPN connection
+# def connect_vpn(state_name):
+#     # Open HMA VPN using PyAutoGUI
+#     print(state_name)
+#     pyautogui.hotkey("win")
+#     time.sleep(1)
+#     pyautogui.write("Surfshark")
+#     pyautogui.press("enter")
+#     time.sleep(5)
+
+#     # Select VPN server location
+#     location = pyautogui.locateCenterOnScreen(
+#         "surfshark_img/search_bar.PNG", confidence=0.8
+#     )
+#     if location is not None:
+#         pyautogui.click(location)
+#     else:
+#         print("Image not found.")
+
+#     time.sleep(2)
+#     pyautogui.write(f"{state_name}")
+#     time.sleep(10)
+
+#     pyautogui.click(f"surfshark_us_states/{state_name}.PNG")
+#     time.sleep(2)  # Click on the VPN server option
+#     # Wait for the connection to establish (adjust the time as needed)
+#     time.sleep(10)
+
+#     # Disconnect VPN after connection
+#     disconnect_vpn()
+
+
 def connect_vpn(state_name):
-    # Open HMA VPN using PyAutoGUI
     print(state_name)
     pyautogui.hotkey("win")
     time.sleep(1)
-    pyautogui.write("HMA VPN")
+    pyautogui.write("Surfshark")
     pyautogui.press("enter")
-    time.sleep(5)
+    time.sleep(10)
 
-    # Select VPN server location
-    pyautogui.click("img/arrow.PNG")
-    time.sleep(2)
-    pyautogui.write(f"{state_name}")
-    time.sleep(2)
-    pyautogui.click(f"US_states_img/{state_name}.PNG")
-    time.sleep(2)  # Click on the VPN server option
-    # Wait for the connection to establish (adjust the time as needed)
-    time.sleep(20)
+    try:
+        location = pyautogui.locateCenterOnScreen(
+            "surfshark_img/search_bar.PNG", confidence=0.7
+        )
+        if location:
+            pyautogui.click(location)
+            time.sleep(2)
+            pyautogui.write(f"{state_name}")
+            time.sleep(10)
 
-    # Disconnect VPN after connection
-    disconnect_vpn()
+            # Adjust the filename dynamically
+            state_image = f"surfshark_us_states/{state_name}.PNG"
+            vpn_location = pyautogui.locateCenterOnScreen(state_image, confidence=0.7)
+            if vpn_location:
+                pyautogui.click(vpn_location)
+                time.sleep(10)
+            else:
+                print(f"VPN location for {state_name} not found.")
+        else:
+            print("Search bar not found.")
+    except pyautogui.ImageNotFoundException:
+        print("Image not found.")
+        pyautogui.screenshot(f"error_{state_name}.png")
 
 
 # Function to disconnect from HMA VPN
