@@ -12,7 +12,7 @@ from selenium.common.exceptions import NoSuchElementException
 pyautogui.FAILSAFE = False
 
 # File paths
-leads_file = r"6424_15Jan.xlsx"
+leads_file = r"6336_satbir.xlsx"
 states_file = r"US State Names.xlsx"
 successful_leads_file = "Successful_Submissions.xlsx"
 
@@ -29,7 +29,6 @@ def connect_vpn(state_name):
     pyautogui.hotkey("win")
     time.sleep(1)
     pyautogui.write("Surfshark")
-    time.sleep(3)  # Wait for Surfshark to open
     pyautogui.press("enter")
     time.sleep(5)  # Wait for Surfshark to open
 
@@ -60,7 +59,7 @@ def connect_vpn(state_name):
 # Handle terms and conditions checkbox
 def check_terms_checkbox(driver):
     checkbox_names = [
-        "terms-n-condition_2",
+        "terms-n-condition",
         "terms-n-condition_1",
     ]  # List of possible checkbox names
     for checkbox_name in checkbox_names:
@@ -89,25 +88,25 @@ def fill_form(driver, url, lead_data):
             print(f"Could not fill field {identifier}: {e}")
 
     # Fill in form fields using the safe_fill_field function
-    safe_fill_field(By.NAME, "names[first_name]", lead_data.get("first_name", ""))
-    safe_fill_field(By.NAME, "names[last_name]", lead_data.get("last_name", ""))
+    safe_fill_field(By.NAME, "input_text", lead_data.get("first_name", ""))
+    safe_fill_field(By.NAME, "input_text_1", lead_data.get("last_name", ""))
     safe_fill_field(By.NAME, "email", lead_data.get("email", ""))
-    safe_fill_field(By.NAME, "input_text", lead_data.get("phone", ""))
-    safe_fill_field(By.NAME, "input_text_1", lead_data.get("company_name", ""))
-    safe_fill_field(By.NAME, "input_text_2", lead_data.get("job_title", ""))
-    # safe_fill_field(By.NAME, "dropdown", lead_data.get("industry", ""))
-    # safe_fill_field(By.NAME, "dropdown_1", lead_data.get("employee_size", ""))
-    # safe_fill_field(By.NAME, "input_text_3", lead_data.get("street_1", ""))
-    safe_fill_field(By.NAME, "input_text_4", lead_data.get("city", ""))
-    safe_fill_field(By.NAME, "input_text_7", lead_data.get("state", ""))
-    # safe_fill_field(By.NAME, "input_text_8", lead_data.get("code", ""))
+    safe_fill_field(
+        By.NAME, lead_data.get("phone-code", ""), lead_data.get("phone", "")
+    )
+    safe_fill_field(By.NAME, "input_text_4", lead_data.get("company_name", ""))
+    safe_fill_field(By.NAME, "input_text_3", lead_data.get("job_title", ""))
+    safe_fill_field(By.NAME, "dropdown_1", lead_data.get("industry", ""))
+    safe_fill_field(By.NAME, "dropdown_6", lead_data.get("employee_size", ""))
+    safe_fill_field(
+        By.NAME, lead_data.get("employee_size-code", ""), lead_data.get("country", "")
+    )
+    safe_fill_field(By.NAME, "dropdown", lead_data.get("role", ""))
+    safe_fill_field(By.NAME, "input_text_5", lead_data.get("code", ""))
     # safe_fill_field(
     # By.NAME, lead_data.get("country-code", ""), lead_data.get("country", "")
     # )
     safe_fill_field(By.NAME, "dropdown_2", lead_data.get("country", ""))
-    # safe_fill_field(By.NAME, "dropdown_2", lead_data.get("q1", ""))
-    # safe_fill_field(By.NAME, "dropdown_3", lead_data.get("q2", ""))
-    # safe_fill_field(By.NAME, "dropdown_3", lead_data.get("q3", ""))
 
     # Check terms and conditions checkbox
     check_terms_checkbox(driver)
