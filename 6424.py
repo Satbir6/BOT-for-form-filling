@@ -12,7 +12,7 @@ from selenium.common.exceptions import NoSuchElementException
 pyautogui.FAILSAFE = False
 
 # File paths
-leads_file = r"6424_15Jan.xlsx"
+leads_file = r"6424_17Jan.xlsx"
 states_file = r"US State Names.xlsx"
 successful_leads_file = "Successful_Submissions.xlsx"
 
