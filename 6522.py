@@ -12,8 +12,8 @@ from selenium.common.exceptions import NoSuchElementException
 pyautogui.FAILSAFE = False
 
 # File paths
-leads_file = r"6424_17Jan.xlsx"
-states_file = r"US State Names.xlsx"
+leads_file = r"6522.xlsx"
+states_file = r"State Names.xlsx"
 successful_leads_file = "Successful_Submissions.xlsx"
 
 # Read data from Excel files
@@ -52,7 +52,7 @@ def connect_vpn(state_name):
         state_image = f"surfshark_us_states/{state_name}.PNG"
         vpn_location = pyautogui.locateCenterOnScreen(state_image, confidence=0.6)
         pyautogui.click(vpn_location)
-        time.sleep(20)
+        time.sleep(30)
 
     print("VPN connection established.")
 
@@ -60,8 +60,8 @@ def connect_vpn(state_name):
 # Handle terms and conditions checkbox
 def check_terms_checkbox(driver):
     checkbox_names = [
-        "terms-n-condition_2",
         "terms-n-condition_3",
+        "terms-n-condition_1",
     ]  # List of possible checkbox names
     for checkbox_name in checkbox_names:
         try:
@@ -99,12 +99,9 @@ def fill_form(driver, url, lead_data):
     safe_fill_field(By.NAME, "dropdown_1", lead_data.get("employee_size", ""))
     safe_fill_field(By.NAME, "input_text_3", lead_data.get("street_1", ""))
     safe_fill_field(By.NAME, "input_text_4", lead_data.get("city", ""))
-    safe_fill_field(By.NAME, "input_text_7", lead_data.get("state", ""))
+    # safe_fill_field(By.NAME, "input_text_7", lead_data.get("state", ""))
     safe_fill_field(By.NAME, "input_text_8", lead_data.get("code", ""))
-    # safe_fill_field(
-    # By.NAME, lead_data.get("country-code", ""), lead_data.get("country", "")
-    # )
-    safe_fill_field(By.NAME, "dropdown_2", lead_data.get("country", ""))
+    safe_fill_field(By.NAME, "country-list", lead_data.get("country", ""))
     # safe_fill_field(By.NAME, "dropdown_2", lead_data.get("q1", ""))
     # safe_fill_field(By.NAME, "dropdown_3", lead_data.get("q2", ""))
     # safe_fill_field(By.NAME, "dropdown_3", lead_data.get("q3", ""))

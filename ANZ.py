@@ -61,6 +61,7 @@ def check_terms_checkbox(driver):
     checkbox_names = [
         "terms-n-condition",
         "terms-n-condition_1",
+        "terms-n-condition_2",
     ]  # List of possible checkbox names
     for checkbox_name in checkbox_names:
         try:
@@ -96,6 +97,7 @@ def fill_form(driver, url, lead_data):
     safe_fill_field(By.NAME, lead_data.get("job_title-code", ""), lead_data.get("job_title", ""))
     safe_fill_field(By.NAME, lead_data.get("industry-code", ""), lead_data.get("industry", ""))
     safe_fill_field(By.NAME, lead_data.get("employee_size-code", ""), lead_data.get("employee_size", ""))
+    safe_fill_field(By.NAME, lead_data.get("job_function-code", ""), lead_data.get("job_function", ""))
     safe_fill_field(By.NAME, lead_data.get("street_1-code", ""), lead_data.get("street_1", ""))
     safe_fill_field(By.NAME, lead_data.get("city-code", ""), lead_data.get("city", ""))
     safe_fill_field(By.NAME, lead_data.get("state-code", ""), lead_data.get("state", ""))
